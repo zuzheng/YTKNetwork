@@ -298,6 +298,8 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 ///  Additional request argument.
 - (nullable id)requestArgument;
 
+- (id)preprocessedRequestArgument;
+
 ///  Override this method to filter requests with certain arguments when caching.
 - (id)cacheFileNameFilterForRequestArgument:(id)argument;
 

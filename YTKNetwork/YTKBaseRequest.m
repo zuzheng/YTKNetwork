@@ -157,8 +157,12 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
     return nil;
 }
 
+- (BOOL)uesEnveloping {
+    return YES;
+}
+
 - (id)preprocessedRequestArgument {
-    
+    return nil;
 }
 
 - (id)cacheFileNameFilterForRequestArgument:(id)argument {

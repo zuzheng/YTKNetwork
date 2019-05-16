@@ -35,6 +35,7 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
 
 @interface YTKBaseRequest ()
 
+@property (nonatomic, strong, readwrite) NSString *fullUrl;
 @property (nonatomic, strong, readwrite) NSURLSessionTask *requestTask;
 @property (nonatomic, strong, readwrite) NSData *responseData;
 @property (nonatomic, strong, readwrite) id responseJSONObject;

@@ -167,6 +167,7 @@
 - (NSURLSessionTask *)sessionTaskForRequest:(YTKBaseRequest *)request error:(NSError * _Nullable __autoreleasing *)error {
     YTKRequestMethod method = [request requestMethod];
     NSString *url = [self buildRequestUrl:request];
+    request.fullUrl = url;
     id param = request.requestArgument;
     AFConstructingBlock constructingBlock = [request constructingBodyBlock];
     AFHTTPRequestSerializer *requestSerializer = [self requestSerializerForRequest:request];

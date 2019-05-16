@@ -21,13 +21,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-/*
- 
- 在这里添加一些东西，test
- 
- 
- */
-
 #import "YTKNetworkConfig.h"
 #import "YTKRequest.h"
 #import "YTKNetworkPrivate.h"

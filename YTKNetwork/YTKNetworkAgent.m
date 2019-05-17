@@ -355,7 +355,7 @@
             request.responseJSONObject = request.responseObject;
         } else {
             succeed = NO;
-            NSDictionary *errorDic = [request configEnvelopeFailed];
+            NSDictionary *errorDic = request.responseJSONObject;
             NSString *message = [errorDic objectForKey:@"message"];
             NSInteger code = [[errorDic objectForKey:@"code"] integerValue];
             requestError = [NSError errorWithDomain:@"com.cssmy.request.validation" code:code userInfo:@{NSLocalizedDescriptionKey:message}];

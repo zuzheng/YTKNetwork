@@ -336,8 +336,6 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 - (NSData *)configEnvelopeData;
 
-- (NSDictionary *)configEnvelopeFailed;
-
 @end
 
 NS_ASSUME_NONNULL_END

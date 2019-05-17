@@ -210,10 +210,6 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
     return nil;
 }
 
-- (NSDictionary *)configEnvelopeFailed {
-    return nil;
-}
-
 #pragma mark - NSObject
 
 - (NSString *)description {

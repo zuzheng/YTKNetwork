@@ -202,7 +202,15 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
     return (statusCode >= 200 && statusCode <= 299);
 }
 
+- (BOOL)useEnvelope {
+    return NO;
+}
+
 - (NSData *)configEnvelopeData {
+    return nil;
+}
+
+- (NSDictionary *)configEnvelopeFailed {
     return nil;
 }
 

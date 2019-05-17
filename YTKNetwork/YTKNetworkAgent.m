@@ -345,12 +345,21 @@
         requestError = validationError;
     }
     
-    NSData *envelopeData = [request configEnvelopeData];
-    if (envelopeData) {
-        request.responseData = envelopeData;
-        request.responseString = [[NSString alloc] initWithData:responseObject encoding:[YTKNetworkUtils stringEncodingWithRequest:request]];
-        request.responseObject = [self.jsonResponseSerializer responseObjectForResponse:task.response data:request.responseData error:&serializationError];
-        request.responseJSONObject = request.responseObject;
+    BOOL useEnvelope = [request useEnvelope];
+    if (useEnvelope) {
+        NSData *envelopeData = [request configEnvelopeData];
+        if (envelopeData) {
+            request.responseData = envelopeData;
+            request.responseString = [[NSString alloc] initWithData:responseObject encoding:[YTKNetworkUtils stringEncodingWithRequest:request]];
+            request.responseObject = [self.jsonResponseSerializer responseObjectForResponse:task.response data:request.responseData error:&serializationError];
+            request.responseJSONObject = request.responseObject;
+        } else {
+            succeed = NO;
+            NSDictionary *errorDic = [request configEnvelopeFailed];
+            NSString *message = [errorDic objectForKey:@"message"];
+            NSInteger code = [[errorDic objectForKey:@"code"] integerValue];
+            requestError = [NSError errorWithDomain:@"com.cssmy.request.validation" code:code userInfo:@{NSLocalizedDescriptionKey:message}];
+        }
     }
 
     if (succeed) {

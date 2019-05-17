@@ -350,7 +350,7 @@
         NSData *envelopeData = [request configEnvelopeData];
         if (envelopeData) {
             request.responseData = envelopeData;
-            request.responseString = [[NSString alloc] initWithData:responseObject encoding:[YTKNetworkUtils stringEncodingWithRequest:request]];
+            request.responseString = [[NSString alloc] initWithData:envelopeData encoding:[YTKNetworkUtils stringEncodingWithRequest:request]];
             request.responseObject = [self.jsonResponseSerializer responseObjectForResponse:task.response data:request.responseData error:&serializationError];
             request.responseJSONObject = request.responseObject;
         } else {

@@ -167,7 +167,6 @@
 - (NSURLSessionTask *)sessionTaskForRequest:(YTKBaseRequest *)request error:(NSError * _Nullable __autoreleasing *)error {
     YTKRequestMethod method = [request requestMethod];
     NSString *url = [self buildRequestUrl:request];
-    request.fullUrl = url;
     id param = request.requestArgument;
     AFConstructingBlock constructingBlock = [request constructingBodyBlock];
     AFHTTPRequestSerializer *requestSerializer = [self requestSerializerForRequest:request];
@@ -344,6 +343,14 @@
     } else {
         succeed = [self validateResult:request error:&validationError];
         requestError = validationError;
+    }
+    
+    NSData *envelopeData = [request configEnvelopeData];
+    if (envelopeData) {
+        request.responseData = envelopeData;
+        request.responseString = [[NSString alloc] initWithData:responseObject encoding:[YTKNetworkUtils stringEncodingWithRequest:request]];
+        request.responseObject = [self.jsonResponseSerializer responseObjectForResponse:task.response data:request.responseData error:&serializationError];
+        request.responseJSONObject = request.responseObject;
     }
 
     if (succeed) {

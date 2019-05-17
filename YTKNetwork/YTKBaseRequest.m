@@ -35,7 +35,6 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
 
 @interface YTKBaseRequest ()
 
-@property (nonatomic, strong, readwrite) NSString *fullUrl;
 @property (nonatomic, strong, readwrite) NSURLSessionTask *requestTask;
 @property (nonatomic, strong, readwrite) NSData *responseData;
 @property (nonatomic, strong, readwrite) id responseJSONObject;
@@ -201,6 +200,10 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
 - (BOOL)statusCodeValidator {
     NSInteger statusCode = [self responseStatusCode];
     return (statusCode >= 200 && statusCode <= 299);
+}
+
+- (NSData *)configEnvelopeData {
+    return nil;
 }
 
 #pragma mark - NSObject

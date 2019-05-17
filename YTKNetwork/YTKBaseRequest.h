@@ -129,8 +129,6 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 /// @name Request and Response Information
 ///=============================================================================
 
-@property (nonatomic, strong, readonly) NSString *fullUrl;
-
 ///  The underlying NSURLSessionTask.
 ///
 ///  @warning This value is actually nil and should not be accessed before the request starts.
@@ -333,6 +331,8 @@ typedef void(^YTKRequestCompletionBlock)(__kindof YTKBaseRequest *request);
 
 ///  This validator will be used to test if `responseStatusCode` is valid.
 - (BOOL)statusCodeValidator;
+
+- (NSData *)configEnvelopeData;
 
 @end
 

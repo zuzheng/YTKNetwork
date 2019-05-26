@@ -298,7 +298,7 @@
     Lock();
     YTKBaseRequest *request = _requestsRecord[@(task.taskIdentifier)];
     Unlock();
-
+    
     // When the request is cancelled and removed from records, the underlying
     // AFNetworking failure callback will still kicks in, resulting in a nil `request`.
     //
@@ -307,20 +307,20 @@
     if (!request) {
         return;
     }
-
+    
     YTKLog(@"Finished Request: %@", NSStringFromClass([request class]));
-
+    
     NSError * __autoreleasing serializationError = nil;
     NSError * __autoreleasing validationError = nil;
-
+    
     NSError *requestError = nil;
     BOOL succeed = NO;
-
+    
     request.responseObject = responseObject;
     if ([request.responseObject isKindOfClass:[NSData class]]) {
         request.responseData = responseObject;
         request.responseString = [[NSString alloc] initWithData:responseObject encoding:[YTKNetworkUtils stringEncodingWithRequest:request]];
-
+        
         switch (request.responseSerializerType) {
             case YTKResponseSerializerTypeHTTP:
                 // Default serializer. Do nothing.
@@ -346,7 +346,7 @@
     }
     
     BOOL useEnvelope = [request useEnvelope];
-    if (useEnvelope) {
+    if (succeed && useEnvelope) {
         NSData *envelopeData = [request configEnvelopeData];
         if (envelopeData) {
             request.responseData = envelopeData;
@@ -355,19 +355,20 @@
             request.responseJSONObject = request.responseObject;
         } else {
             succeed = NO;
+            NSString *message = @"";
             NSDictionary *errorDic = request.responseJSONObject;
-            NSString *message = [errorDic objectForKey:@"message"];
+            message = [errorDic objectForKey:@"message"];
             NSInteger code = [[errorDic objectForKey:@"code"] integerValue];
             requestError = [NSError errorWithDomain:@"com.cssmy.request.validation" code:code userInfo:@{NSLocalizedDescriptionKey:message}];
         }
     }
-
+    
     if (succeed) {
         [self requestDidSucceedWithRequest:request];
     } else {
         [self requestDidFailWithRequest:request error:requestError];
     }
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self removeRequestFromRecord:request];
         [request clearCompletionBlock];

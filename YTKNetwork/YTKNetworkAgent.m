@@ -355,10 +355,10 @@
             request.responseJSONObject = request.responseObject;
         } else {
             succeed = NO;
-            NSString *message = @"";
             NSDictionary *errorDic = request.responseJSONObject;
-            message = [errorDic objectForKey:@"message"];
-            NSInteger code = [[errorDic objectForKey:@"code"] integerValue];
+            NSString *message = [errorDic objectForKey:@"message"] ?: @"";
+            NSString *codeStr = [errorDic objectForKey:@"code"] ?: @"14912";
+            NSInteger code = [codeStr integerValue];
             requestError = [NSError errorWithDomain:@"com.cssmy.request.validation" code:code userInfo:@{NSLocalizedDescriptionKey:message}];
         }
     }

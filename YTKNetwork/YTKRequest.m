@@ -276,16 +276,16 @@ static dispatch_queue_t ytkrequest_cache_writing_queue() {
         }
     }
     // App version
-    NSString *appVersionString = self.cacheMetadata.appVersionString;
-    NSString *currentAppVersionString = [YTKNetworkUtils appVersionString];
-    if (appVersionString || currentAppVersionString) {
-        if (appVersionString.length != currentAppVersionString.length || ![appVersionString isEqualToString:currentAppVersionString]) {
-            if (error) {
-                *error = [NSError errorWithDomain:YTKRequestCacheErrorDomain code:YTKRequestCacheErrorAppVersionMismatch userInfo:@{ NSLocalizedDescriptionKey:@"App version mismatch"}];
-            }
-            return NO;
-        }
-    }
+//    NSString *appVersionString = self.cacheMetadata.appVersionString;
+//    NSString *currentAppVersionString = [YTKNetworkUtils appVersionString];
+//    if (appVersionString || currentAppVersionString) {
+//        if (appVersionString.length != currentAppVersionString.length || ![appVersionString isEqualToString:currentAppVersionString]) {
+//            if (error) {
+//                *error = [NSError errorWithDomain:YTKRequestCacheErrorDomain code:YTKRequestCacheErrorAppVersionMismatch userInfo:@{ NSLocalizedDescriptionKey:@"App version mismatch"}];
+//            }
+//            return NO;
+//        }
+//    }
     return YES;
 }
 
